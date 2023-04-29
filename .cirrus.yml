@@ -54,10 +54,6 @@ task:
       - echo "git clone KT successful"
       - git clone $SE_VT_LINK $SE_VT_PATH 
       - echo "git clone SE_VT successful"
-      - rm -r prebuilts/clang/host/linux-x86/clang-r450784d
-      - echo "clang removed successfully"
-      - git clone $CLANG_LINK $CLANG_PATH
-      - echo "git clone CLANG successful"
       - git clone $V_MTK_OS_LINK $V_MTK_OS_PATH
       - echo "git clone V_MTK_OS successful"
       - git clone $V_MTK_INTERF_LINK $V_MTK_INTERF_PATH
@@ -73,6 +69,10 @@ task:
       - echo "ROM repo initialization successful"
       - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
       - echo "ROM repo sync successful"
+      - rm -r prebuilts/clang/host/linux-x86/clang-r450784d
+      - echo "clang removed successfully"
+      - git clone $CLANG_LINK $CLANG_PATH
+      - echo "git clone CLANG successful"
       - echo "==========================="
       - echo "Syncing Complete!"
       - echo "============================"
