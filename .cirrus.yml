@@ -31,7 +31,7 @@ task:
   name: "Setting Up, Syncing and Building ..."
   timeout_in: 240m
   container:
-      image: ghcr.io/sushrut1101/docker:arch
+      image: apon77/aosp:latest
       cpu: 8
       memory: 32G
 
