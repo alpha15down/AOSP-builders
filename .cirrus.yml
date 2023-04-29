@@ -17,12 +17,12 @@ env:
     V_MTK_OS_PATH: vendor/mediatek/opensource
     V_MTK_INTERF_LINK: https://github.com/Nukxx/vendor_mediatek_interfaces.git
     V_MTK_INTERF_PATH: vendor/mediatek/interfaces
-    #MTK_COM_LINK: https://github.com/Nukxx/device_mediatek_common.git
-    #MTK_COM_PATH: device/mediatek/common
-    #HW_MTK_LINK: https://github.com/Nukxx/android_hardware_mediatek.git
-    #HW_MTK_PATH: hardware/mediatek
-    #HW_XIMI_LINK: https://github.com/Nukxx/android_hardware_xiaomi.git
-    #HW_XIMI_PATH: hardware/xiaomi
+    MTK_COM_LINK: https://github.com/Nukxx/device_mediatek_common.git
+    MTK_COM_PATH: device/mediatek/common
+    HW_MTK_LINK: https://github.com/Nukxx/android_hardware_mediatek.git
+    HW_MTK_PATH: hardware/mediatek
+    HW_XIMI_LINK: https://github.com/Nukxx/android_hardware_xiaomi.git
+    HW_XIMI_PATH: hardware/xiaomi
     EXTRA_CMD: export SKIP_ABI_CHECKS=true
     LUNCH_COMBO: aosp_${DEVICE}-userdebug
     OUTPUT: aosp*.zip
@@ -67,12 +67,12 @@ task:
       - echo "git clone V_MTK_OS successful"
       - git clone $V_MTK_INTERF_LINK $V_MTK_INTERF_PATH
       - echo "git clone V_MTK_INTERFACE successful"
-      #- git clone $MTK_COM_LINK $MTK_COM_PATH
-      #- echo "git clone MTK_COM successful"
-      #- git clone $HW_MTK_LINK $HW_MTK_PATH
-      #- echo "git clone HW_MTK successful"
-      #- git clone $HW_XIMI_LINK $HW_XIMI_PATH
-      #- echo "git clone HW_XIMI successful"
+      - git clone $MTK_COM_LINK $MTK_COM_PATH
+      - echo "git clone MTK_COM successful"
+      - git clone $HW_MTK_LINK $HW_MTK_PATH
+      - echo "git clone HW_MTK successful"
+      - git clone $HW_XIMI_LINK $HW_XIMI_PATH
+      - echo "git clone HW_XIMI successful"
       - echo "==========================="
       - echo "Syncing Complete!"
       - echo "============================"
