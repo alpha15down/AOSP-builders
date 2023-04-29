@@ -87,8 +87,7 @@ task:
       - export CCACHE_EXEC=/usr/bin/ccache
       - ccache -M 50G
       - source build/envsetup.sh
-      - lunch yaap_rosemary-userdebug
-      - m yaap
+      - lunch yaap_device-user && m yaap
      
 
 Upload_script:
