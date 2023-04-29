@@ -29,7 +29,7 @@ env:
 
 task:
   name: "Setting Up, Syncing and Building ..."
-  timeout_in: 2m
+  timeout_in: 240m
   container:
       image: ghcr.io/sushrut1101/docker:arch
       cpu: 8
