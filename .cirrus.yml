@@ -1,5 +1,4 @@
 env:
-    MANIFEST: repo init -u https://github.com/yaap/manifest.git -b thirteen
     DEVICE: rosemary 
     OEM: xiaomi
     DT_LINK: https://github.com/Nukxx/android_device_xiaomi_rosemary.git
@@ -47,11 +46,6 @@ task:
       - echo "============================"
       - mkdir -p ~/work
       - cd ~/work
-      - mkdir p-404 && cd p-404
-      - repo init -u https://github.com/P-404/android_manifest -b tokui
-      - echo "ROM repo initialization successful"
-      - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
-      - echo "ROM repo sync successful"
       - git clone $DT_LINK $DT_PATH
       - echo "git clone DT successful"
       - git clone $VT_LINK $VT_PATH
@@ -74,6 +68,11 @@ task:
       - echo "git clone HW_MTK successful"
       - git clone $HW_XIMI_LINK $HW_XIMI_PATH
       - echo "git clone HW_XIMI successful"
+      - mkdir p-404 && cd p-404
+      - repo init -u https://github.com/P-404/android_manifest -b tokui
+      - echo "ROM repo initialization successful"
+      - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+      - echo "ROM repo sync successful"
       - echo "==========================="
       - echo "Syncing Complete!"
       - echo "============================"
@@ -88,7 +87,7 @@ task:
       - export CCACHE_EXEC=/usr/bin/ccache
       - ccache -M 50G
       - source build/envsetup.sh
-      - lunch p404_$devicecodename-userdebug
+      - lunch p404_$rosemary-userdebug
       - make bacon
      
 
