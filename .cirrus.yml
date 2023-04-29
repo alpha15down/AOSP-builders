@@ -48,17 +48,31 @@ task:
       - mkdir -p ~/work
       - cd ~/work
       - repo init -u https://github.com/yaap/manifest.git -b thirteen
+      - echo "ROM repo initialization successful"
       - repo sync -j$(nproc --all) --no-tags --no-clone-bundle --current-branch
+      - echo "ROM repo sync successful"
       - git clone $DT_LINK $DT_PATH
+      - echo "git clone DT successful"
       - git clone $VT_LINK $VT_PATH
+      - echo "git clone VT successful"
       - git clone $KT_LINK $KT_PATH
+      - echo "git clone KT successful"
       - git clone $SE_VT_LINK $SE_VT_PATH 
+      - echo "git clone SE_VT successful"
+      - rm -r prebuilts/clang/host/linux-x86/clang-r450784d
+      - echo "clang removed successfully"
       - git clone $CLANG_LINK $CLANG_PATH
+      - echo "git clone CLANG successful"
       - git clone $V_MTK_OS_LINK $V_MTK_OS_PATH
+      - echo "git clone V_MTK_OS successful"
       - git clone $V_MTK_INTERF_LINK $V_MTK_INTERF_PATH
+      - echo "git clone V_MTK_INTERFACE successful"
       - git clone $MTK_COM_LINK $MTK_COM_PATH
+      - echo "git clone MTK_COM successful"
       - git clone $HW_MTK_LINK $HW_MTK_PATH
+      - echo "git clone HW_MTK successful"
       - git clone $HW_XIMI_LINK $HW_XIMI_PATH
+      - echo "git clone HW_XIMI successful"
       - echo "==========================="
       - echo "Syncing Complete!"
       - echo "============================"
