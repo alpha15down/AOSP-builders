@@ -2,7 +2,7 @@ env:
     MANIFEST: repo init -u https://github.com/yaap/manifest.git -b thirteen
     DEVICE: rosemary 
     OEM: xiaomi
-    DT_LINK: https://github.com/Nukxx/android_device_xiaomi_rosemary/tree/yaap-thirteen
+    DT_LINK: https://github.com/Nukxx/android_device_xiaomi_rosemary.git
     DT_PATH: device/$OEM/$DEVICE
     SE_VT_LINK: https://github.com/Nukxx/device_mediatek_sepolicy_vndr/tree/lineage-20
     SE_VT_PATH: device/mediatek/sepolicy_vndr 
