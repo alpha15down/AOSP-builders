@@ -1,0 +1,97 @@
+env:
+    MANIFEST: repo init -u https://github.com/yaap/manifest.git -b thirteen
+    DEVICE: rosemary 
+    OEM: xiaomi
+    DT_LINK: https://github.com/Nukxx/android_device_xiaomi_rosemary/tree/yaap-thirteen
+    DT_PATH: device/$OEM/$DEVICE
+    SE_VT_LINK: https://github.com/Nukxx/device_mediatek_sepolicy_vndr/tree/lineage-20
+    SE_VT_PATH: device/mediatek/sepolicy_vndr 
+    VT_LINK: https://github.com/Nukxx/proprietary_vendor_xiaomi_rosemary/tree/lineage-20
+    VT_PATH: vendor/$OEM/$DEVICE
+    KT_LINK: https://github.com/Nukxx/android_kernel_xiaomi_mt6785/tree/lineage-20
+    PLATFORM: mt6785
+    KT_PATH: kernel/$OEM/$PLATFORM
+    CLANG_LINK: https://gitlab.com/tejassinggh/clang-r450784d.git
+    CLANG_PATH: prebuilts/clang/host/linux-x86/clang-r450784d
+    V_MTK_OS_LINK: https://github.com/Nukxx/vendor_mediatek-opensource/tree/thirteen
+    V_MTK_OS_PATH: vendor/mediatek/opensource
+    V_MTK_INTERF_LINK: https://github.com/Nukxx/vendor_mediatek_interfaces/tree/thirteen
+    V_MTK_INTERF_PATH: vendor/mediatek/interfaces
+    MTK_COM_LINK: https://github.com/Nukxx/device_mediatek_common/tree/thirteen
+    MTK_COM_PATH: device/mediatek/common
+    HW_MTK_LINK: https://github.com/Nukxx/android_hardware_mediatek/tree/lineage-20
+    HW_MTK_PATH: hardware/mediatek
+    HW_XIMI_LINK: https://github.com/Nukxx/android_hardware_xiaomi/tree/lineage-20
+    HW_XIMI_PATH: hardware/xiaomi
+    EXTRA_CMD: export SKIP_ABI_CHECKS=true
+    LUNCH_COMBO: aosp_${DEVICE}-userdebug
+    OUTPUT: aosp*.zip
+
+task:
+  name: "Setting Up, Syncing and Building ..."
+  timeout_in: 2m
+  container:
+      image: ghcr.io/sushrut1101/docker:arch
+      cpu: 8
+      memory: 32G
+
+
+
+  Storage-Checker_script:
+      - df -h
+      - lsblk
+      - ls -l -a -h
+  
+  Sync_script:
+      - echo "============================"
+      - echo "Syncing The Sources..."
+      - echo "============================"
+      - mkdir -p ~/work
+      - cd ~/work
+      - repo init -u https://github.com/yaap/manifest.git -b thirteen
+      - repo sync -j$(nproc --all) --no-tags --no-clone-bundle --current-branch
+      - git clone $DT_LINK $DT_PATH
+      - git clone $VT_LINK $VT_PATH
+      - git clone $KT_LINK $KT_PATH
+      - git clone $SE_VT_LINK $SE_VT_PATH 
+      - git clone $CLANG_LINK $CLANG_PATH
+      - git clone $V_MTK_OS_LINK $V_MTK_OS_PATH
+      - git clone $V_MTK_INTERF_LINK $V_MTK_INTERF_PATH
+      - git clone $MTK_COM_LINK $MTK_COM_PATH
+      - git clone $HW_MTK_LINK $HW_MTK_PATH
+      - git clone $HW_XIMI_LINK $HW_XIMI_PATH
+      - echo "==========================="
+      - echo "Syncing Complete!"
+      - echo "============================"
+
+  Build_script:
+      - echo "============================"
+      - echo "Starting the Build..."
+      - echo "============================"
+      - cd ~/work
+      - $EXTRA_CMD
+      - export USE_CCACHE=1
+      - export CCACHE_EXEC=/usr/bin/ccache
+      - ccache -M 50G
+      - source build/envsetup.sh
+      - lunch yaap_rosemary-userdebug
+      - m yaap
+     
+
+Upload_script:
+      - echo "============================"
+      - echo "Uploading the Build..."
+      - echo "============================"
+      - cd ~/work
+      - cd out/target/product/"$DEVICE"
+      - ls -lh
+      - pwd
+      - chmod 777 *
+      - curl --upload-file $(echo $OUTPUT) https://transfer.sh | tee link.txt && echo " "
+      - echo " "
+      - echo "============================"
+      - echo "Build Uploaded!"
+      - echo "Please see the link Below-  "
+      - echo "----------------------------"
+      - cat link.txt && echo " "
+      - echo "=========================="
